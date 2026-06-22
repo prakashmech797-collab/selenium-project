@@ -1,0 +1,57 @@
+package handle;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class automation {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriver d = new ChromeDriver();
+		d.manage().window().maximize();
+		d.get("https://www.thehindu.com/");
+		
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".header-search-btn"))).click();
+		WebElement box = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input.gsc-input")));
+		box.sendKeys("tecnology development");
+		box.sendKeys(Keys.ENTER);
+		Actions act = new Actions(d);
+		act.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
+	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'DRDO hands over seven')]"))).click();
+	    Actions act2 = new Actions(d);
+	    act2.scrollByAmount(0, 400).build().perform();
+	    Thread.sleep(2000);
+	    System.out.println(wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h2.sub-title"))).getText());
+	    d.navigate().to("https://www.thehindu.com/");
+	    Actions act5 = new Actions(d);
+	    act5.scrollByAmount(0, 400).build().perform();
+	    wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".menu-btn"))).click();
+	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-target-dropbox='item12']"))).click(); 
+	    wait.until(ExpectedConditions.elementToBeClickable(By.partialLinkText("Careers"))).click();
+	    act.sendKeys(Keys.PAGE_DOWN).perform();
+	    wait.until(ExpectedConditions.elementToBeClickable(By.partialLinkText("Rethinking"))).click();
+	    Actions act3 = new Actions(d);
+	    act3.scrollByAmount(0,2000).build().perform();
+	    Thread.sleep(2000);
+	    act3.scrollByAmount(0, -2000).build().perform();
+	    d.navigate().to("https://www.thehindu.com/education/careers/");
+	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='logo']/a[@href='https://www.thehindu.com/']"))).click();
+	    wait.until(ExpectedConditions.elementToBeClickable(By.partialLinkText("India"))).click();
+	    act.sendKeys(Keys.PAGE_DOWN).perform();
+	    d.findElement(By.partialLinkText("Indian Navy")).click();
+	    Thread.sleep(2000);
+	    act.sendKeys(Keys.PAGE_DOWN).perform();
+	    	      
+   d.quit();   
+	}
+}
